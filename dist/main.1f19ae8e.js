@@ -128,7 +128,7 @@ function counter() {
   }, 1000);
 }
 
-counter(); // ------------ Binary Search --------------
+counter(); // ------------ Binary Search - Recursive -----------------
 
 var search = function search(nums, target) {
   var biSearch = function biSearch(nums, target, low, high) {
@@ -150,7 +150,7 @@ var search = function search(nums, target) {
   }
 
   return biSearch(nums, target, nums[0], nums[nums.length - 1]);
-}; // ------------- TwoSum ---------------
+}; // ----------------- TwoSum -------------------
 
 
 var twoSum = function twoSum(nums, target) {
@@ -167,7 +167,7 @@ var twoSum = function twoSum(nums, target) {
   }
 };
 
-var nums = [2, 7, 11, 15];
+var numsTwoSum = [2, 7, 11, 15];
 var target = 9;
 
 var twoSum2 = function twoSum2(nums, target) {
@@ -186,7 +186,8 @@ var twoSum2 = function twoSum2(nums, target) {
 
     hash[nums[i]] = i;
   }
-};
+}; //-------------- isValid Brackets ---------------------
+
 
 var isValid = function isValid(s) {
   //group characters by type as they appear
@@ -197,16 +198,63 @@ var isValid = function isValid(s) {
 
   for (var i = 0; i < s.length; i++) {
     if (openSample.includes(s[i])) {
-      open.unshift(s[i]);
-    } else if (!pairs.includes(open[0] + s[i])) {
-      return false;
+      open.unshift(s[i]); // console.log(open)
+      // console.log(open[0] + s[i])
+    } else {
+      if (!pairs.includes(open[0] + s[i])) {
+        // console.log(open[0] + s[i])
+        return false;
+      } else {
+        open.shift();
+      }
     }
   }
 
   return open.length > 0 ? false : true;
+}; // --------------- isBadVersion -------------------
+
+
+var solution = function solution(isBadVersion) {
+  /**
+   * @param {integer} n Total versions
+   * @return {integer} The first bad version
+   */
+  var firstBad = function firstBad(n, low) {
+    var mid = low + Math.floor((n - low) / 2);
+
+    if (isBadVersion(mid)) {
+      if (!isBadVersion(n / 2 + 1)) {
+        return mid;
+      }
+
+      return firstBad(n, mid + 1);
+    }
+
+    if (isBadVersion(mid - 1)) {
+      return mid - 1;
+    }
+
+    return firstBad(mid - 1, low);
+  };
+
+  return firstBad(n, 0);
+}; //--------------- Rotate Array k Steps ------------------
+
+
+var nums = [1, 2, 3, 4, 5, 6, 7];
+var k = 3;
+
+var rotate = function rotate(nums, k) {
+  // slice last k numbers
+  // push numbers sliced in front of new numbs
+  var newNums = [];
+  var numsRotated = nums.slice(nums.length - k, nums.length);
+  newNums.push(numsRotated);
+  newNums.push(nums.slice(0, nums.length - k));
+  return newNums.flat(); // return nums.slice(nums.length - k, nums.length).unshift(nums)
 };
 
-console.log(twoSum2(nums, target));
+console.log(rotate(nums, k));
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -235,7 +283,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54351" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61105" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

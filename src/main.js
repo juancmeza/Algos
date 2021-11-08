@@ -10,7 +10,7 @@ function counter() {
 
 counter();
 
-// ------------ Binary Search --------------
+// ------------ Binary Search - Recursive -----------------
 
 let search = function(nums, target) {
 
@@ -39,7 +39,7 @@ let search = function(nums, target) {
 
 };
 
-// ------------- TwoSum ---------------
+// ----------------- TwoSum -------------------
 
 let twoSum = function(nums, target) {
 
@@ -55,7 +55,7 @@ let twoSum = function(nums, target) {
 
 };
 
-let nums = [2,7,11,15]
+let numsTwoSum = [2,7,11,15]
 let target = 9
 
 
@@ -77,6 +77,7 @@ const twoSum2 = function(nums, target) {
 
 };
 
+//-------------- isValid Brackets ---------------------
 var isValid = function(s) {
 
     //group characters by type as they appear
@@ -89,12 +90,68 @@ var isValid = function(s) {
     for (let i = 0; i < s.length; i++) {
         if (openSample.includes(s[i])) {
             open.unshift(s[i])
-        } else if (!pairs.includes(open[0] + s[i])) {
-            return false
+            // console.log(open)
+            // console.log(open[0] + s[i])
+        } else {
+            if (!pairs.includes(open[0] + s[i])) {
+              // console.log(open[0] + s[i])
+              return false
+          } else {
+            open.shift()
+          }
         }
     }
 
-    return open.length > 0 ? false : true
+     return open.length > 0 ? false : true
+
+};
+// --------------- isBadVersion -------------------
+var solution = function(isBadVersion) {
+    /**
+     * @param {integer} n Total versions
+     * @return {integer} The first bad version
+     */
+    const firstBad = (n, low) => {
+
+        let mid = low + Math.floor((n - low)/2)
+
+        if (isBadVersion(mid)) {
+            if (!isBadVersion((n/2) + 1)) {
+                return mid
+            }
+            return firstBad(n, mid + 1)
+        }
+
+        if (isBadVersion(mid - 1)) {
+            return mid - 1
+        }
+
+        return firstBad(mid - 1, low)
+
+    };
+
+    return firstBad(n, 0)
+
 };
 
-console.log(twoSum2(nums, target))
+//--------------- Rotate Array k Steps ------------------
+let nums = [1,2,3,4,5,6,7]
+let k = 3
+var rotate = function(nums, k) {
+
+  // slice last k numbers
+  // push numbers sliced in front of new numbs
+
+  let newNums = []
+  let numsRotated = nums.slice(nums.length - k, nums.length)
+
+  newNums.push(numsRotated)
+  newNums.push(nums.slice(0, nums.length - k))
+
+  return newNums.flat()
+
+  // return nums.slice(nums.length - k, nums.length).unshift(nums)
+
+};
+
+console.log(rotate(nums, k))
