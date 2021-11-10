@@ -154,4 +154,74 @@ var rotate = function(nums, k) {
 
 };
 
-console.log(rotate(nums, k))
+
+// ----------------- Flatten list ------------------
+
+let notFlatList = [1, 2, [3, 4], 5, [6, [7]]]
+
+const flatten2 = (arr) => {
+
+  let newArr = []
+
+  const isNumber = (element) => {
+    if (typeof(element) === 'number') {
+      newArr.push(element)
+      return 'done'
+    } else {
+        if (element.length === 1) {
+          return isNumber(element[0])
+        }
+        element.forEach(el => {
+          isNumber(el)
+        })
+    }
+  }
+
+  arr.forEach(element => {
+    isNumber(element)
+  });
+
+
+  return newArr
+}
+
+/**
+ * @param {string[]} wordsDict
+ * @param {string} word1
+ * @param {string} word2
+ * @return {number}
+ */
+var shortestDistance = function(wordsDict, word1, word2) {
+
+    let minDist = Infinity
+    let indexLastWord
+    let lastWord
+
+    //if word1 or word2 - get differece between indexes, compare to minDist and           update if less than minDist
+
+    //Update indexLastWord
+
+    //check that lastWord is not the same before checking distance
+    //if word is same, still update indexLastWord but don't check distance
+
+    for (let i = 0; i < wordsDict.length; i++) {
+        if (wordsDict[i] === word1 || wordsDict[i] === word2) {
+            if (wordsDict[i] === lastWord)
+            lastWord = wordsDict[i]
+            if (indexLastWord === undefined) {
+                indexLastWord = i
+            } else {
+                if ((i - indexLastWord) < minDist) {
+                    minDist = i - indexLastWord
+                }
+                indexLastWord = i
+            }
+        }
+    }
+
+    return minDist
+
+};
+
+
+console.log(flatten2(notFlatList))
