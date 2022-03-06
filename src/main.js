@@ -185,12 +185,7 @@ const flatten2 = (arr) => {
   return newArr
 }
 
-/**
- * @param {string[]} wordsDict
- * @param {string} word1
- * @param {string} word2
- * @return {number}
- */
+
 var shortestDistance = function(wordsDict, word1, word2) {
 
     let minDist = Infinity
@@ -225,3 +220,126 @@ var shortestDistance = function(wordsDict, word1, word2) {
 
 
 console.log(flatten2(notFlatList))
+
+// ----------------- Depth First Search Graph ------------------
+
+const graph = {
+    a: ['b','c'],
+    b: ['d'],
+    c: ['e'],
+    d: ['f'],
+    e: [],
+    f: [],
+}
+
+const depthFirstPrint = (graph, source) => {
+
+    const stack = [source];
+    
+    while (stack.length > 0) {
+        const current = stack.pop()
+        console.log(current)
+
+        for (let neighbor of graph[current]){
+            stack.push(neighbor)
+        }
+    }
+}
+
+// ----------------- Depth First Search Graph Recursive ------------------
+
+const depthFirstPrintRecursive = (graph, source) => {
+
+    console.log(source)
+    for (let neighbor of graph[source]) {
+        depthFirstPrintRecursive(graph, neighbor)
+    }
+
+}
+
+// ----------------- Breadth First Search Graph ------------------
+
+const breadthFirstPrint = (graph, source) => {
+
+    const queue = [source];
+    while (queue.length > 0 ) {
+        const current = queue.shift()
+        console.log(current)
+        for (let neighbor of graph[current]) {
+            queue.push(neighbor)
+        }
+    }
+
+}
+
+// ----------------- Depth First Graph Find if there is a path ------------------
+
+const hasPath2 = (graph, src, dst) => {
+
+    if (src == dst) return true
+
+    for (let neighbor of graph[src]) {
+        if (hasPath2(graph, neighbor, dst) === true) {
+            return true
+        }
+    }
+
+    return false
+}
+
+// ----------------- Breadth First Graph Find if there is a path ------------------
+
+const hasPath3 = (graph, src, dst) => {
+
+    const queue = [src]
+
+    while (queue.legth > 0) {
+        const current = queue.shift()
+        if (current === dst) {
+            return true
+        }
+
+        for (let neighbor of graph[current]) {
+            queue.push(neighbor)
+        }
+    }
+
+    return false
+
+}
+
+// ----------------- Depth First Graph Find if there is a path ------------------
+
+const hasPath = (graph, src, dst) => {
+
+    const stack = [src]
+
+    while (stack.length > 0) {
+        const current = stack.pop()
+        if (current === dst) return true
+
+        for (let neighbor of graph[current]) {
+            stack.push(neighbor)
+        }
+    }
+
+    return false
+
+}
+
+// ----------------- Depth First Graph Find if there is a path Recursive ------------------
+
+
+const hasPathRecursive = (graph, src, dst) => {
+
+    if (src === dst) return true
+
+    for (let neighbor of graph[src]) {
+        if (hasPathRecursive(graph, neighbor, dst) === true) return true
+    }
+
+    return false
+
+}
+
+
